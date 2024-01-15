@@ -6,6 +6,9 @@ import lombok.var;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * @author Parami Ashinsana
+ */
 public class CustomerDBProcess {
     private static final String SAVE_CUSTOMER_DATA = "INSERT INTO CUSTOMER (custId, custName, custMobile, custAddress) VALUES (?,?,?,?)";
 
