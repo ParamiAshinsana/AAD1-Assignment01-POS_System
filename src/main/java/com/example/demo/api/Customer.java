@@ -1,5 +1,7 @@
 package com.example.demo.api;
 
+import com.example.demo.db.CustomerDBProcess;
+import com.example.demo.dto.CustomerDTO;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import lombok.var;
@@ -48,12 +50,13 @@ public class Customer extends HttpServlet {
                 if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
                         resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
                 } else {
-                        System.out.println("itemDTO.getCode()");
                         Jsonb jsonb = JsonbBuilder.create();
-                        var itemDTO = jsonb.fromJson(req.getReader(), ItemDTO.class);
-                        System.out.println(itemDTO.getCode());
-                        var dbProcess = new DBProcess();
-                        dbProcess.saveItemOne(itemDTO, connection);
+
+                        CustomerDTO customerDTO;
+                        customerDTO = jsonb.fromJson(req.getReader(), CustomerDTO.class);
+
+                        CustomerDBProcess customerDBProcess = new CustomerDBProcess();
+                        customerDBProcess.saveCustomer(customerDTO,connection);
 
                 }
         }
