@@ -12,7 +12,7 @@ import lombok.*;
 @ToString
 @Data
 public class CustomerDTO {
-    private String code;
+    private String id;
     private String name;
     private int mobile;
     private String address;

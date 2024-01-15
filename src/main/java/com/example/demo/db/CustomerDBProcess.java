@@ -1,5 +1,8 @@
 package com.example.demo.db;
 
+import com.example.demo.dto.CustomerDTO;
+import lombok.var;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -10,11 +13,11 @@ public class CustomerDBProcess {
     // Customer Save
     public void saveCustomer(CustomerDTO customers, Connection connection){
         try {
-            var ps = connection.prepareStatement(SAVE_ITEM_DATA);
-            ps.setString(1, items.getCode());
-            ps.setString(2, items.getDescription());
-            ps.setDouble(3, items.getUnitPrice());
-            ps.setInt(4, items.getQty());
+            var ps = connection.prepareStatement(SAVE_CUSTOMER_DATA);
+            ps.setString(1, customers.getId());
+            ps.setString(2, customers.getName());
+            ps.setInt(3, customers.getMobile());
+            ps.setString(4, customers.getAddress());
 
             if (ps.executeUpdate() != 0) {
                 System.out.println("Data saved");
