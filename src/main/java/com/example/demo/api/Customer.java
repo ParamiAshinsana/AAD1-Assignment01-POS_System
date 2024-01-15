@@ -1,11 +1,16 @@
 package com.example.demo.api;
 
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
 import lombok.var;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -37,4 +42,19 @@ public class Customer extends HttpServlet {
                 }
         }
 
+        @Override
+        protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                System.out.println("Hello Dopost");
+                if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
+                        resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                } else {
+                        System.out.println("itemDTO.getCode()");
+                        Jsonb jsonb = JsonbBuilder.create();
+                        var itemDTO = jsonb.fromJson(req.getReader(), ItemDTO.class);
+                        System.out.println(itemDTO.getCode());
+                        var dbProcess = new DBProcess();
+                        dbProcess.saveItemOne(itemDTO, connection);
+
+                }
+        }
 }
