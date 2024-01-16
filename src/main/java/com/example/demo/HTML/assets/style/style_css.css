@@ -147,3 +147,9 @@ nav.navbar {
 /*    align-items: center;*/
 /*    min-height: 100vh;*/
 /*}*/
+
+.table tbody tr:hover {
+    cursor: pointer;
+    color: #FFA800 !important;
+    background-color: #FFA800 !important;
+}
