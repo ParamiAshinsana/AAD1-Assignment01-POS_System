@@ -64,6 +64,35 @@ public class Customer extends HttpServlet {
                 }
         }
 
+        // To Delete the Customer
+
+        @Override
+        protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                System.out.println("Hello doDelete");
+
+                String customerId = req.getParameter("id");
+
+                if (customerId != null && !customerId.isEmpty()) {
+                        CustomerDBProcess customerDBProcess = new CustomerDBProcess();
+
+                        boolean deleted = customerDBProcess.deleteCustomer(customerId, connection);
+
+                        if (deleted) {
+                                resp.setStatus(HttpServletResponse.SC_OK);
+                                resp.getWriter().write("Customer deleted successfully");
+                                System.out.println("Customer deleted successfully");
+                        } else {
+                                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                                resp.getWriter().write("Customer not found or unable to delete");
+                                System.out.println("Customer not found or unable to delete");
+                        }
+                } else {
+                        resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                        resp.getWriter().write("Invalid request parameters");
+                        System.out.println("Invalid request parameters");
+                }
+        }
+
         // To get all the Customers
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
