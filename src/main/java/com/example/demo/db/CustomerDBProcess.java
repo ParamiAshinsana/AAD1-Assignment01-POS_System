@@ -16,7 +16,9 @@ import java.util.List;
 public class CustomerDBProcess {
     private static final String SAVE_CUSTOMER_DATA = "INSERT INTO CUSTOMER (custId,custName,custMobile,custAddress) VALUES (?,?,?,?)";
 
-    private static final String SELECT_ALL_CUSTOMERS = "SELECT * FROM customer";
+    private static final String SELECT_ALL_CUSTOMERS = "SELECT * FROM CUSTOMER";
+
+    private static final String DELETE_CUSTOMER_DATA = "DELETE from customer where custId=?" ;
 
     // Customer Save
     public void saveCustomer(CustomerDTO customers, Connection connection){
@@ -60,6 +62,24 @@ public class CustomerDBProcess {
         }
 
         return customerDTOS;
+    }
+
+    // Customer Delete
+
+    public boolean deleteCustomer(String custId, Connection connection) {
+        try {
+            var ps = connection.prepareStatement(DELETE_CUSTOMER_DATA);
+            ps.setString(1, custId);
+
+            if (ps.executeUpdate() != 0) {
+                System.out.println("Customer Deleted!");
+            } else {
+                System.out.println("Customer Not Found or Unable to Delete");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

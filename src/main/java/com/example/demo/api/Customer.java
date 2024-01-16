@@ -65,26 +65,17 @@ public class Customer extends HttpServlet {
         }
 
         // To Delete the Customer
-//        @Override
-//        protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//                System.out.println("Hello doDelete");
-//                if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
-//                        resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
-//                } else {
-//                        Jsonb jsonb = JsonbBuilder.create();
-//
-//                        CustomerDTO customerDTO;
-//                        customerDTO = jsonb.fromJson(req.getReader(), CustomerDTO.class);
-//
-//                        CustomerDBProcess customerDBProcess = new CustomerDBProcess();
-//                        customerDBProcess.saveCustomer(customerDTO,connection);
-//
-//                }
-//        }
+        @Override
+        protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                System.out.println("Hello doDelete");
+                CustomerDBProcess customerDBProcess = new CustomerDBProcess();
+
+                // Directly write the response message based on the result of deleteCustomer
+                resp.getWriter().write(customerDBProcess.deleteCustomer(req.getParameter("id"), connection) ? "Customer Deleted!" : "Customer Not Found or Unable to Delete");
+
+        }
 
         // To get all the Customers
-
-
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                 System.out.println("Hello doDelete");
