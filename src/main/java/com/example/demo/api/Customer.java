@@ -64,17 +64,6 @@ public class Customer extends HttpServlet {
                 }
         }
 
-        // To Delete the Customer
-        @Override
-        protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-                System.out.println("Hello doDelete");
-                CustomerDBProcess customerDBProcess = new CustomerDBProcess();
-
-                // Directly write the response message based on the result of deleteCustomer
-                resp.getWriter().write(customerDBProcess.deleteCustomer(req.getParameter("id"), connection) ? "Customer Deleted!" : "Customer Not Found or Unable to Delete");
-
-        }
-
         // To get all the Customers
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
