@@ -14,6 +14,6 @@ import lombok.*;
 public class CustomerDTO {
     private String id;
     private String name;
-    private int mobile;
+    private String mobile;
     private String address;
 }
