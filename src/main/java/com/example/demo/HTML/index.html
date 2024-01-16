@@ -346,6 +346,7 @@
 <script type="module" src="../HTML/controllers/CustomerController.js"></script>
 <script>
     loadCustomers();
+    var row_index = null;
     // Customer Save
     $(document).ready(function() {
         $("#customer-btns > button[type='button']").eq(0).on("click", () => {
@@ -406,6 +407,22 @@
             }
         });
     }
+
+    // when click a row
+    $("#customer-tbl-body").on("click", "tr", function() {
+        row_index = $(this).index();
+
+        let id = $(this).find(".id").text();
+        let name = $(this).find(".name").text();
+        let mobile = $(this).find(".mobile").text();
+        let address = $(this).find(".address").text();
+
+        $("#id").val(id);
+        $("#customer_name").val(name);
+        $("#customer_mobile").val(mobile);
+        $("#customer_address").val(address);
+    })
+
 
 </script>
 </body>
