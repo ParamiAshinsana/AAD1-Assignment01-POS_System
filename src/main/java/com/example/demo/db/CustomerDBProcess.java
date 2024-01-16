@@ -66,4 +66,17 @@ public class CustomerDBProcess {
 
     // Customer Delete
 
+    public boolean deleteCustomer(String cusId, Connection connection) {
+        System.out.println("DB-deleteCustomer");
+        try {
+            var ps = connection.prepareStatement("DELETE FROM CUSTOMER WHERE custId = ?");
+            ps.setString(1, cusId);
+
+            return ps.executeUpdate() != 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
