@@ -66,20 +66,4 @@ public class CustomerDBProcess {
 
     // Customer Delete
 
-    public boolean deleteCustomer(String custId, Connection connection) {
-        try {
-            var ps = connection.prepareStatement(DELETE_CUSTOMER_DATA);
-            ps.setString(1, custId);
-
-            if (ps.executeUpdate() != 0) {
-                System.out.println("Customer Deleted!");
-            } else {
-                System.out.println("Customer Not Found or Unable to Delete");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
 }
