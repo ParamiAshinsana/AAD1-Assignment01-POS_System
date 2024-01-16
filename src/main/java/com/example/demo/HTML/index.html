@@ -112,6 +112,9 @@
 
                     <div class="mt-5 m-5" id="customer-btns">
                         <button type="button" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                        <button type="reset" class="btn btn-warning">Reset</button>
                     </div>
 
 
@@ -342,6 +345,8 @@
 <!--Link Controllers-->
 <script type="module" src="../HTML/controllers/CustomerController.js"></script>
 <script>
+    loadCustomers();
+    // Customer Save
     $(document).ready(function() {
         $("#customer-btns > button[type='button']").eq(0).on("click", () => {
             event.preventDefault();
@@ -374,6 +379,7 @@
                 data:customerJSON,
                 headers:{"Content-Type":"application/json"},
                 success: (res) =>{
+                    loadCustomers();
                     console.log(JSON.stringify(res))
                 },
                 error: (err)=>{
@@ -384,6 +390,22 @@
 
         });
     });
+
+    // get all customers data
+    function loadCustomers() {
+        $("#customer-tbl-body").empty();
+
+        $.ajax({
+            url: "http://localhost:8080/Demo_war_exploded/customer",
+            type: "GET",
+            success: function(data) {
+                data.forEach(function(customer) {
+                    let record = `<tr><td class="id">${customer.id}</td><td class="name">${customer.name}</td><td class="mobile">${customer.mobile}</td><td class="address">${customer.address}</td></tr>`;
+                    $("#customer-tbl-body").append(record);
+                });
+            }
+        });
+    }
 
 </script>
 </body>
