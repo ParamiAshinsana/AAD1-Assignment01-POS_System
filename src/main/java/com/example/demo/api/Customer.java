@@ -2,6 +2,7 @@ package com.example.demo.api;
 
 import com.example.demo.db.CustomerDBProcess;
 import com.example.demo.dto.CustomerDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import lombok.var;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(name = "customer", urlPatterns = "/customer",
         initParams = {
@@ -44,9 +46,10 @@ public class Customer extends HttpServlet {
                 }
         }
 
+        // To Save the Customer
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-                System.out.println("Hello Dopost");
+                System.out.println("Hello doPost");
                 if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
                         resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
                 } else {
@@ -59,5 +62,45 @@ public class Customer extends HttpServlet {
                         customerDBProcess.saveCustomer(customerDTO,connection);
 
                 }
+        }
+
+        // To Delete the Customer
+//        @Override
+//        protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//                System.out.println("Hello doDelete");
+//                if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
+//                        resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+//                } else {
+//                        Jsonb jsonb = JsonbBuilder.create();
+//
+//                        CustomerDTO customerDTO;
+//                        customerDTO = jsonb.fromJson(req.getReader(), CustomerDTO.class);
+//
+//                        CustomerDBProcess customerDBProcess = new CustomerDBProcess();
+//                        customerDBProcess.saveCustomer(customerDTO,connection);
+//
+//                }
+//        }
+
+        // To get all the Customers
+
+
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                System.out.println("Hello doDelete");
+                Jsonb jsonb = JsonbBuilder.create();
+                CustomerDTO customerDTO;
+
+                CustomerDBProcess customerDBProcess = new CustomerDBProcess();
+
+                List<CustomerDTO> customers = customerDBProcess.getAllCustomer(connection);
+
+                resp.setContentType("application/json");
+                resp.setCharacterEncoding("UTF-8");
+
+                ObjectMapper objMapper = new ObjectMapper();
+                String objRslt = objMapper.writeValueAsString(customers);
+
+                resp.getWriter().write(objRslt);
         }
 }
