@@ -80,8 +80,10 @@ $("#customer-tbl-body").on("click", "tr", function() {
 
 // Customer Delete
 
-$("#customerbtns>button[type='button']").eq(2).on("click", () => {
+$("#customer-btns>button[type='button']").eq(2).on("click", () => {
     let id = $("#id").val();
+    console.log(id);
+    console.log("Delete BTN");
 
     Swal.fire({
         title: 'Are you sure?',
