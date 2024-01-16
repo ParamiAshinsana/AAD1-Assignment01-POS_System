@@ -18,7 +18,7 @@ public class CustomerDBProcess {
 
     private static final String SELECT_ALL_CUSTOMERS = "SELECT * FROM CUSTOMER";
 
-    private static final String DELETE_CUSTOMER_DATA = "DELETE from customer where custId=?" ;
+    private static final String DELETE_CUSTOMER_DATA = "DELETE FROM CUSTOMER WHERE custId = ?" ;
 
     // Customer Save
     public void saveCustomer(CustomerDTO customers, Connection connection){
@@ -69,7 +69,7 @@ public class CustomerDBProcess {
     public boolean deleteCustomer(String cusId, Connection connection) {
         System.out.println("DB-deleteCustomer");
         try {
-            var ps = connection.prepareStatement("DELETE FROM CUSTOMER WHERE custId = ?");
+            var ps = connection.prepareStatement(DELETE_CUSTOMER_DATA);
             ps.setString(1, cusId);
 
             return ps.executeUpdate() != 0;
