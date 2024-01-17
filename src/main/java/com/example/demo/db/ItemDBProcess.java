@@ -82,12 +82,13 @@ public class ItemDBProcess {
 
     // Item Update
     public void updateItem(ItemDTO item, Connection connection) {
+        System.out.println("Hello updateItem");
         try {
             var ps = connection.prepareStatement(UPDATE_ITEM_DATA);
-            ps.setString(1, item.getIcode());
-            ps.setString(2, item.getIname());
-            ps.setDouble(3, item.getIprice());
-            ps.setInt(4, item.getIqty());
+            ps.setString(1, item.getIname());
+            ps.setDouble(2, item.getIprice());
+            ps.setInt(3, item.getIqty());
+            ps.setString(4, item.getIcode());
 
             if (ps.executeUpdate() != 0) {
                 System.out.println("Data updated");

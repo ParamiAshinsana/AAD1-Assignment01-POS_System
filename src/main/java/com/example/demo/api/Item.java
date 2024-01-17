@@ -115,7 +115,7 @@ public class Item extends HttpServlet {
         }
     }
 
-    // To Update the Customer
+    // To Update the Item
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Hello doPut");
