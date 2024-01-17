@@ -20,6 +20,8 @@ public class CustomerDBProcess {
 
     private static final String DELETE_CUSTOMER_DATA = "DELETE FROM CUSTOMER WHERE custId = ?" ;
 
+    private static final String UPDATE_CUSTOMER_DATA = "UPDATE CUSTOMER SET custName=?, custMobile=?, custAddress=? WHERE custId=?";
+
     // Customer Save
     public void saveCustomer(CustomerDTO customers, Connection connection){
         try {
@@ -40,6 +42,7 @@ public class CustomerDBProcess {
             throw new RuntimeException(e);
         }
     }
+
     // Get All Customers
     public List<CustomerDTO> getAllCustomer(Connection connection) {
         List<CustomerDTO> customerDTOS = new ArrayList<>();
@@ -65,7 +68,6 @@ public class CustomerDBProcess {
     }
 
     // Customer Delete
-
     public boolean deleteCustomer(String cusId, Connection connection) {
         System.out.println("DB-deleteCustomer");
         try {
@@ -81,8 +83,6 @@ public class CustomerDBProcess {
     }
 
     // Customer Update
-    private static final String UPDATE_CUSTOMER_DATA = "UPDATE CUSTOMER SET custName=?, custMobile=?, custAddress=? WHERE custId=?";
-
     public void updateCustomer(CustomerDTO customer, Connection connection) {
         try {
             var ps = connection.prepareStatement(UPDATE_CUSTOMER_DATA);
