@@ -64,7 +64,7 @@ public class ItemDBProcess {
     }
 
     // Item Delete
-    public boolean deleteCustomer(String itemCode, Connection connection) {
+    public boolean deleteItem(String itemCode, Connection connection) {
         System.out.println("DB-deleteItem");
         try {
             var ps = connection.prepareStatement(DELETE_ITEM_DATA);

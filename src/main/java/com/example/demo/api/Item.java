@@ -87,4 +87,32 @@ public class Item extends HttpServlet {
         resp.getWriter().write(objRslt);
     }
 
+    // To Delete the Item
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("Hello doDelete");
+
+        String itemCode = req.getParameter("icode");
+
+        if (itemCode != null && !itemCode.isEmpty()) {
+            ItemDBProcess itemDBProcess = new ItemDBProcess();
+
+            boolean deleted = itemDBProcess.deleteItem(itemCode, connection);
+
+            if (deleted) {
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.getWriter().write("Item deleted successfully");
+                System.out.println("Item deleted successfully");
+            } else {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                resp.getWriter().write("Item not found or unable to delete");
+                System.out.println("Item not found or unable to delete");
+            }
+        } else {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write("Invalid request parameters");
+            System.out.println("Invalid request parameters");
+        }
+    }
+
 }
