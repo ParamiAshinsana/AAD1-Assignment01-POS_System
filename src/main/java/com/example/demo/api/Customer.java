@@ -96,7 +96,7 @@ public class Customer extends HttpServlet {
         // To get all the Customers
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-                System.out.println("Hello doDelete");
+                System.out.println("Hello doGet");
                 Jsonb jsonb = JsonbBuilder.create();
                 CustomerDTO customerDTO;
 
@@ -112,4 +112,23 @@ public class Customer extends HttpServlet {
 
                 resp.getWriter().write(objRslt);
         }
+
+        // To Update the Customer
+        @Override
+        protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                System.out.println("Hello doPut");
+
+                if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
+                        resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                } else {
+                        Jsonb jsonb = JsonbBuilder.create();
+
+                        CustomerDTO customerDTO;
+                        customerDTO = jsonb.fromJson(req.getReader(), CustomerDTO.class);
+
+                        CustomerDBProcess customerDBProcess = new CustomerDBProcess();
+                        customerDBProcess.updateCustomer(customerDTO, connection);
+                }
+        }
+
 }
