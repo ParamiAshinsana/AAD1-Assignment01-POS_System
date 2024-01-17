@@ -15,6 +15,9 @@ public class ItemDBProcess {
     private static final String SAVE_ITEM_DATA = "INSERT INTO ITEM (itemCode,itemName,itemPrice,itemQuantity) VALUES (?,?,?,?)";
 
     private static final String SELECT_ALL_ITEMS = "SELECT * FROM ITEM";
+
+    private static final String DELETE_ITEM_DATA = "DELETE FROM ITEM WHERE itemCode = ?" ;
+
     // ITEM Save
     public void saveItem(ItemDTO items, Connection connection){
         try {
@@ -60,6 +63,18 @@ public class ItemDBProcess {
         return itemsDTO;
     }
 
+    // Item Delete
+    public boolean deleteCustomer(String itemCode, Connection connection) {
+        System.out.println("DB-deleteItem");
+        try {
+            var ps = connection.prepareStatement(DELETE_ITEM_DATA);
+            ps.setString(1, itemCode);
 
+            return ps.executeUpdate() != 0;
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
