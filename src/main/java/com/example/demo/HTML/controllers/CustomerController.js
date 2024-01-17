@@ -37,9 +37,21 @@ $(document).ready(function() {
             success: (res) =>{
                 loadCustomers();
                 console.log(JSON.stringify(res))
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Customer has been saved successfully!',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
             },
             error: (err)=>{
                 console.error(err)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Input',
+                    text: 'Something went wrong!'
+                })
             }
         });
 
