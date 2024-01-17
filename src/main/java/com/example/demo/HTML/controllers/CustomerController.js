@@ -35,6 +35,8 @@ $(document).ready(function() {
             data:customerJSON,
             headers:{"Content-Type":"application/json"},
             success: (res) =>{
+                // clear();
+                $("#customer-btns>button[type='reset']").click();
                 loadCustomers();
                 console.log(JSON.stringify(res))
 
@@ -91,7 +93,6 @@ $("#customer-tbl-body").on("click", "tr", function() {
 })
 
 // Customer Delete
-
 $("#customer-btns>button[type='button']").eq(2).on("click", () => {
     let id = $("#id").val();
     console.log(id);
@@ -116,6 +117,7 @@ $("#customer-btns>button[type='button']").eq(2).on("click", () => {
                 url: "http://localhost:8080/Demo_war_exploded/customer?id="+id,
                 type: "DELETE",
                 success: function () {
+                    // clear();
                     $("#customer-btns>button[type='reset']").click();
                     loadCustomers();
                 }
@@ -156,6 +158,8 @@ $("#customer-btns > button[type='button']").eq(1).on("click", () => {
         data: customerJSON,
         headers: { "Content-Type": "application/json" },
         success: (res) => {
+            // clear();
+            $("#customer-btns>button[type='reset']").click();
             loadCustomers();
             console.log(JSON.stringify(res));
 
