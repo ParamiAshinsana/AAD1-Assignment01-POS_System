@@ -65,7 +65,6 @@ public class Customer extends HttpServlet {
         }
 
         // To Delete the Customer
-
         @Override
         protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                 System.out.println("Hello doDelete");

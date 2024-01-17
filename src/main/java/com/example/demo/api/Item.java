@@ -4,6 +4,7 @@ import com.example.demo.db.CustomerDBProcess;
 import com.example.demo.db.ItemDBProcess;
 import com.example.demo.dto.CustomerDTO;
 import com.example.demo.dto.ItemDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import lombok.var;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(name = "item", urlPatterns = "/item",
         initParams = {
@@ -61,6 +63,28 @@ public class Item extends HttpServlet {
             ItemDBProcess itemDBProcess = new ItemDBProcess();
             itemDBProcess.saveItem(itemDTO , connection);
         }
+    }
+
+    // To get all the Items
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("Hello doGet");
+        Jsonb jsonb = JsonbBuilder.create();
+
+        ItemDTO itemDTO;
+
+        ItemDBProcess itemDBProcess = new ItemDBProcess();
+
+        List<ItemDTO> items = itemDBProcess.getAllItems(connection);
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
+        ObjectMapper objMapper = new ObjectMapper();
+
+        String objRslt = objMapper.writeValueAsString(items);
+
+        resp.getWriter().write(objRslt);
     }
 
 }
