@@ -1,4 +1,6 @@
 loadItems();
+var row_index = null;
+
 // Item Save
 $(document).ready(function() {
     $("#item-btns> button[type='button']").eq(0).on("click", () => {
@@ -73,3 +75,18 @@ function loadItems() {
         }
     });
 }
+
+// when click a row
+$("#item-tbl-body").on("click", "tr", function() {
+    row_index = $(this).index();
+
+    let icode = $(this).find(".icode").text();
+    let iname = $(this).find(".iname").text();
+    let iprice = $(this).find(".iprice").text();
+    let iqty = $(this).find(".iqty").text();
+
+    $("#item_code").val(icode);
+    $("#item_name").val(iname);
+    $("#item_price").val(iprice);
+    $("#item_qty").val(iqty);
+})
