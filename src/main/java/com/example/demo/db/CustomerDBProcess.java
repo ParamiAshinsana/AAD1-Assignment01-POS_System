@@ -45,7 +45,7 @@ public class CustomerDBProcess {
 
     // Get All Customers
     public List<CustomerDTO> getAllCustomer(Connection connection) {
-        List<CustomerDTO> customerDTOS = new ArrayList<>();
+        List<CustomerDTO> customersDTO = new ArrayList<>();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_CUSTOMERS);
              ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -57,14 +57,14 @@ public class CustomerDBProcess {
                         resultSet.getString("custMobile"),
                         resultSet.getString("custAddress")
                 );
-                customerDTOS.add(customerDTO);
+                customersDTO.add(customerDTO);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return customerDTOS;
+        return customersDTO;
     }
 
     // Customer Delete
