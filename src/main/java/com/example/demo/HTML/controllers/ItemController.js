@@ -90,3 +90,37 @@ $("#item-tbl-body").on("click", "tr", function() {
     $("#item_price").val(iprice);
     $("#item_qty").val(iqty);
 })
+
+// Item Delete
+$("#item-btns>button[type='button']").eq(2).on("click", () => {
+    let code = $("#item_code").val();
+    console.log(code);
+    console.log("Delete BTN");
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+            $.ajax({
+                url: "http://localhost:8080/Demo_war_exploded/item?icode="+code,
+                type: "DELETE",
+                success: function () {
+                    // clear();
+                    $("#item-btns>button[type='reset']").click();
+                    loadItems();
+                }
+            });
+        }
+    })
+})
