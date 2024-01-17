@@ -1,3 +1,4 @@
+loadItems();
 // Item Save
 $(document).ready(function() {
     $("#item-btns> button[type='button']").eq(0).on("click", () => {
@@ -33,7 +34,7 @@ $(document).ready(function() {
             success: (res) =>{
                 // clear();
                 $("#item-btns>button[type='reset']").click();
-                // loadCustomers();
+                loadItems();
                 console.log(JSON.stringify(res))
 
                 Swal.fire({
@@ -56,3 +57,19 @@ $(document).ready(function() {
 
     });
 });
+
+// get all customers data
+function loadItems() {
+    $("#item-tbl-body").empty();
+
+    $.ajax({
+        url: "http://localhost:8080/Demo_war_exploded/item",
+        type: "GET",
+        success: function(data) {
+            data.forEach(function(item) {
+                let record = `<tr><td class="icode">${item.icode}</td><td class="iname">${item.iname}</td><td class="iprice">${item.iprice}</td><td class="iqty">${item.iqty}</td></tr>`;
+                $("#item-tbl-body").append(record);
+            });
+        }
+    });
+}

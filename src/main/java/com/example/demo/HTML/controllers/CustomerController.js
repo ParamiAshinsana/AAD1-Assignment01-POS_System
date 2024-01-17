@@ -1,7 +1,6 @@
 loadCustomers();
 var row_index = null;
 
-
 // Customer Save
 $(document).ready(function() {
     $("#customer-btns > button[type='button']").eq(0).on("click", () => {
