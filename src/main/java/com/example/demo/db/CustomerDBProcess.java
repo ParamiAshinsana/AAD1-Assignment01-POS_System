@@ -79,4 +79,26 @@ public class CustomerDBProcess {
         }
         return false;
     }
+
+    // Customer Update
+    private static final String UPDATE_CUSTOMER_DATA = "UPDATE CUSTOMER SET custName=?, custMobile=?, custAddress=? WHERE custId=?";
+
+    public void updateCustomer(CustomerDTO customer, Connection connection) {
+        try {
+            var ps = connection.prepareStatement(UPDATE_CUSTOMER_DATA);
+            ps.setString(1, customer.getName());
+            ps.setString(2, customer.getMobile());
+            ps.setString(3, customer.getAddress());
+            ps.setString(4, customer.getId());
+
+            if (ps.executeUpdate() != 0) {
+                System.out.println("Data updated");
+            } else {
+                System.out.println("Failed to update");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
