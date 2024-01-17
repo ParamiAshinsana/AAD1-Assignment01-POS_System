@@ -115,4 +115,22 @@ public class Item extends HttpServlet {
         }
     }
 
+    // To Update the Customer
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("Hello doPut");
+
+        if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            Jsonb jsonb = JsonbBuilder.create();
+
+            ItemDTO itemDTO ;
+            itemDTO = jsonb.fromJson(req.getReader(), ItemDTO.class);
+
+            ItemDBProcess itemDBProcess = new ItemDBProcess();
+            itemDBProcess.updateItem(itemDTO, connection);
+        }
+    }
+
 }
