@@ -18,6 +18,8 @@ public class ItemDBProcess {
 
     private static final String DELETE_ITEM_DATA = "DELETE FROM ITEM WHERE itemCode = ?" ;
 
+    private static final String UPDATE_ITEM_DATA = "UPDATE ITEM SET itemName=?, itemPrice=?, itemQuantity=? WHERE itemCode=?";
+
     // ITEM Save
     public void saveItem(ItemDTO items, Connection connection){
         try {
@@ -76,5 +78,25 @@ public class ItemDBProcess {
             e.printStackTrace();
         }
         return false;
+    }
+
+    // Item Update
+    public void updateItem(ItemDTO item, Connection connection) {
+        try {
+            var ps = connection.prepareStatement(UPDATE_ITEM_DATA);
+            ps.setString(1, item.getIcode());
+            ps.setString(2, item.getIname());
+            ps.setDouble(3, item.getIprice());
+            ps.setInt(4, item.getIqty());
+
+            if (ps.executeUpdate() != 0) {
+                System.out.println("Data updated");
+            } else {
+                System.out.println("Failed to update");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
