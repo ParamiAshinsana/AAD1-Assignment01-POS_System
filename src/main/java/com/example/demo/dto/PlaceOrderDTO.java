@@ -2,6 +2,8 @@ package com.example.demo.dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -12,10 +14,6 @@ public class PlaceOrderDTO {
     private String orderId;
     private String orderDate;
     private String customerId;
-    private String customerName;
     private String itemCode;
-    private String itemName;
-    private Double unitPrice;
-    private Integer quantity;
     private Double total; // Calculated total for the item
 }
