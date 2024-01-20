@@ -1,11 +1,20 @@
 package com.example.demo.api;
 
+import com.example.demo.db.CustomerDBProcess;
+import com.example.demo.db.PlaceOrderDBProcess;
+import com.example.demo.dto.CustomerDTO;
+import com.example.demo.dto.PlaceOrderDTO;
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
 import lombok.var;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -35,6 +44,23 @@ public class PlaceOrder extends HttpServlet{
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+        }
+    }
+    // To Save the Order
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("Hello doPost");
+        if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            Jsonb jsonb = JsonbBuilder.create();
+
+            PlaceOrderDTO placeOrderDTO;
+            placeOrderDTO = jsonb.fromJson(req.getReader(), PlaceOrderDTO.class);
+
+            PlaceOrderDBProcess placeOrderDBProcess = new PlaceOrderDBProcess();
+            placeOrderDBProcess.saveOrders(placeOrderDTO,connection);
+
         }
     }
 }
