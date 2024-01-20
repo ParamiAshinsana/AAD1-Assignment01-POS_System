@@ -266,13 +266,13 @@
         <form onsubmit="return login()">
             <label style="color: #fff3cd; font-size: 18px;">User Name :</label>
             <div class="input-box">
-                <input type="text" placeholder="User Name">
+                <input type="text" placeholder="User Name" id="username">
                 <i class="fa fa-envelope"></i>
             </div>
 
             <label style="color: #fff3cd; font-size: 18px;">Password :</label>
             <div class="input-box">
-                <input type="password" placeholder="Password">
+                <input type="password" placeholder="Password" id="password">
                 <i class="fa fa-lock"></i>
             </div>
 
@@ -281,7 +281,7 @@
                 <label for="rembar">remember me</label>
             </div>
 
-            <button type="submit" id="loginButton">LOGIN</button>
+            <button type="button" id="loginButton">LOGIN</button>
 
             <div class="links">
                 <a href="#">Forgot password</a>
@@ -294,6 +294,8 @@
 </div>
 
 <script src="../HTML/assets/style/jquery/lib/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="module" src="../HTML/controllers/LoginController.js"></script>
 <script>
     function login() {
         // Your existing logic
