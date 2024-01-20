@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -49,23 +50,125 @@ public class Login extends HttpServlet {
         }
     }
 
+//    @Override
+//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        System.out.println("Hello doGet");
+//        Jsonb jsonb = JsonbBuilder.create();
+//        LoginDTO loginDTO;
+//
+//        LoginDBProcess loginDBProcess = new LoginDBProcess();
+//
+//        List<LoginDTO> logins = loginDBProcess.getAllLoginDetails(connection);
+//
+//        resp.setContentType("application/json");
+//        resp.setCharacterEncoding("UTF-8");
+//
+//        ObjectMapper objMapper = new ObjectMapper();
+//        String objRslt = objMapper.writeValueAsString(logins);
+//
+//        resp.getWriter().write(objRslt);
+//    }
+
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        System.out.println("Hello doPost");
+//        if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
+//            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+//        } else {
+//            Jsonb jsonb = JsonbBuilder.create();
+//
+//
+//            LoginDTO loginDTO;
+//            loginDTO = jsonb.fromJson(req.getReader(), LoginDTO.class);
+////            if (validateLogin(loginDTO.getUserNameQ(),loginDTO.getPasswordQ())){
+////                resp.setContentType("application/json");
+////                resp.setCharacterEncoding("UTF-8");
+////            }else {
+////                resp.setContentType("application/json");
+////                resp.setCharacterEncoding("UTF-8");
+////            }
+//            if (validateLogin(loginDTO.getUserNameQ(), loginDTO.getPasswordQ())) {
+//                resp.setContentType("application/json");
+//                resp.setCharacterEncoding("UTF-8");
+//                // Send success response if needed
+//                resp.getWriter().write("{\"status\": \"200\", \"message\": \"Login successful\"}");
+//            } else {
+//                resp.setContentType("application/json");
+//                resp.setCharacterEncoding("UTF-8");
+//                // Send failure response if needed
+//                resp.getWriter().write("{\"status\": \"401\", \"message\": \"Invalid username or password\"}");
+//            }
+//
+//        }
+//    }
+
+//    private boolean validateLogin(String userName, String password) {
+//        // Implement logic to validate username and password against the database
+//        try {
+//            List<LoginDTO> logins = new LoginDBProcess().getAllLoginDetails(connection);
+//
+//            for (LoginDTO login : logins) {
+//                System.out.println(login);
+//                if (userName.equals(login.getUserNameQ()) && password.equals(login.getPasswordQ())) {
+//                    return true; // Authentication successful
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return false; // Authentication failed
+//    }
+//    private boolean validateLogin(String userName, String password) {
+//        try {
+//            List<LoginDTO> logins = new LoginDBProcess().getAllLoginDetails(connection);
+//
+//            for (LoginDTO login : logins) {
+//                if (userName.equals(login.getUserNameQ()) && password.equals(login.getPasswordQ())) {
+//                    return true; // Authentication successful
+//                }
+//            }
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//        return false; // Authentication failed
+//    }
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Hello doGet");
-        Jsonb jsonb = JsonbBuilder.create();
-        LoginDTO loginDTO;
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("Hello doPost");
+        if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            Jsonb jsonb = JsonbBuilder.create();
+            LoginDTO loginDTO;
+            loginDTO = jsonb.fromJson(req.getReader(), LoginDTO.class);
 
-        LoginDBProcess loginDBProcess = new LoginDBProcess();
-
-        List<LoginDTO> logins = loginDBProcess.getAllLoginDetails(connection);
-
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-
-        ObjectMapper objMapper = new ObjectMapper();
-        String objRslt = objMapper.writeValueAsString(logins);
-
-        resp.getWriter().write(objRslt);
+            if (validateLogin(loginDTO.getUserNameQ(), loginDTO.getPasswordQ())) {
+                resp.setContentType("application/json");
+                resp.setCharacterEncoding("UTF-8");
+                // Send success response if needed
+                resp.getWriter().write("{\"status\": \"200\", \"message\": \"Login successful\"}");
+            } else {
+                resp.setContentType("application/json");
+                resp.setCharacterEncoding("UTF-8");
+                // Send failure response if needed
+                resp.getWriter().write("{\"status\": \"401\", \"message\": \"Invalid username or password\"}");
+            }
+        }
     }
 
+    private boolean validateLogin(String userName, String password) {
+        try {
+            List<LoginDTO> logins = new LoginDBProcess().getAllLoginDetails(connection);
+
+            for (LoginDTO login : logins) {
+                if (userName.equals(login.getUserNameQ()) && password.equals(login.getPasswordQ())) {
+                    return true; // Authentication successful
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return false; // Authentication failed
+    }
 }
