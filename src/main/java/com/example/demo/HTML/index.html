@@ -209,7 +209,7 @@
     <h2>Place Orders</h2>
     <div class="container">
 
-<!--        top-up total label-->
+        <!--        top-up total label-->
 
         <div class="container border p-2 mb-3 shadow p-3  bg-body rounded">
             <div class="text-end">
@@ -249,73 +249,62 @@
                 <button class="btn bg-theme2 text-black border p-2 mb-3 shadow p-3  bg-body rounded" id="btnSubmitOrder" type="button">Purchase</button>
             </div>
         </div>
-<!--        top-up total label-->
+        <!--        top-up total label-->
 
-        <div class="row">
-            <div class="col col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+        <!-- Section 1 -->
+        <div class="row mb-4">
+            <div class="col-md-6">
                 <form>
                     <div class="mb-3">
                         <label for="order_id" class="form-label">Order ID :</label>
                         <input type="text" disabled class="form-control" id="order_id" placeholder="Type Item Code here">
                     </div>
 
-                    <div class="col">
-                        <label for="orderDate" class="form-label">Order Date</label>
-                        <input type="text" class="form-control" id="orderDate">
-                    </div>
-
-                    <div class="col">
-                        <label for="oCid" class="form-label">Customer</label>
-                        <select id="oCid" class="form-select">
-                            <option selected>Choose...</option>
-                        </select>
-                    </div>
-
-                    <div class="col">
+                    <div class="mb-3">
                         <label for="cus_Code" class="form-label">Customer ID</label>
                         <input type="text" class="form-control" id="cus_Code">
                     </div>
 
-                    <div class="col">
-                        <label for="customerName" class="form-label">Customer Name</label>
-                        <input type="text" class="form-control" id="customerName">
-                    </div>
-
-                    <div class="col">
-                        <label for="inputItem" class="form-label">Item</label>
-                        <select id="inputItem" class="form-select">
-                            <option selected>Choose...</option>
-                        </select>
-                    </div>
-                    <div class="col">
+                    <div class="mb-3">
                         <label for="itemCode" class="form-label">Item Code</label>
                         <input type="text" class="form-control" id="itemCode">
                     </div>
-
-                    <div class="col">
-                        <label for="oItemName" class="form-label">Item Name</label>
-                        <input type="text" class="form-control" id="oItemName">
-                    </div>
-
 
                     <div class="mb-3">
                         <label for="unit_price" class="form-label">Unit Price :</label>
                         <input type="text" class="form-control" id="unit_price" placeholder="Type Item Quantity here">
                     </div>
 
+                    <div class="mt-5 mb-5" id="order-btns">
+                        <button type="button" class="btn btn-success">Add</button>
+                        <button type="reset" class="btn btn-warning">Reset</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <form>
+                    <!-- Add your fields for the second section here -->
+                    <div class="mb-3">
+                        <label for="orderDate" class="form-label">Order Date</label>
+                        <input type="text" class="form-control" id="orderDate">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="customerName" class="form-label">Customer Name</label>
+                        <input type="text" class="form-control" id="customerName">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="oItemName" class="form-label">Item Name</label>
+                        <input type="text" class="form-control" id="oItemName">
+                    </div>
+
                     <div class="mb-3">
                         <label for="qty" class="form-label">Quantity :</label>
                         <input type="text" class="form-control" id="qty" placeholder="Type Item Quantity here">
                     </div>
-
-
-                    <div class="mt-5 m-5" id="order-btns">
-                        <button type="button" class="btn btn-success">Add</button>
-                        <button type="reset" class="btn btn-warning">Reset</button>
-                    </div>
-
                 </form>
-
             </div>
 
             <div class="col">
@@ -333,7 +322,6 @@
                 </table>
 
             </div>
-
         </div>
     </div>
 </section>
