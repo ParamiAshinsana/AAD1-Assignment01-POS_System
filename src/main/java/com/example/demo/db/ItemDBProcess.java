@@ -100,4 +100,24 @@ public class ItemDBProcess {
             throw new RuntimeException(e);
         }
     }
+
+
+
+    // Get All Item Codes
+    public List<String> getAllItemCodes(Connection connection) {
+        List<String> itemCodes = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ITEMS);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                itemCodes.add(resultSet.getString("itemCode"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return itemCodes;
+    }
 }
