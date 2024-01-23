@@ -15,5 +15,7 @@ public class PlaceOrderDTO {
     private String orderDate;
     private String customerId;
     private String itemCode;
+    private Double itemUnitPrice;
+    private int itemQty;
     private Double total; // Calculated total for the item
 }
