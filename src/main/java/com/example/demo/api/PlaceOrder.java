@@ -67,7 +67,7 @@ public class PlaceOrder extends HttpServlet{
 //        }
 //    }
 
-    // To get all item codes
+    // To get all item codes and customers ids
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Hello doGet for Item Codes");
