@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class PlaceOrderDBProcess {
-    private static final String SAVE_ORDERS_DATA = "INSERT INTO CUSTOMER (orderId,orderDate,custId,itemCode,total) VALUES (?,?,?,?,?)";
+    private static final String SAVE_ORDERS_DATA = "INSERT INTO CUSTOMER (orderId,orderDate,custId,itemCode,unitPrice,orQty,total) VALUES (?,?,?,?,?,?,?)";
 
     // Customer Save
     public void saveOrders(PlaceOrderDTO placeOrderDTO, Connection connection){
@@ -18,6 +18,8 @@ public class PlaceOrderDBProcess {
             ps.setString(2,placeOrderDTO.getOrderDate());
             ps.setString(3,placeOrderDTO.getCustomerId());
             ps.setString(4,placeOrderDTO.getItemCode());
+            ps.setDouble(4,placeOrderDTO.getItemUnitPrice());
+            ps.setInt(4,placeOrderDTO.getItemQty());
             ps.setDouble(5,placeOrderDTO.getTotal());
 
             if (ps.executeUpdate() != 0) {
