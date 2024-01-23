@@ -1,9 +1,11 @@
 package com.example.demo.api;
 
 import com.example.demo.db.CustomerDBProcess;
+import com.example.demo.db.ItemDBProcess;
 import com.example.demo.db.PlaceOrderDBProcess;
 import com.example.demo.dto.CustomerDTO;
 import com.example.demo.dto.PlaceOrderDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import lombok.var;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(name = "placeOrder", urlPatterns = "/placeOrder",
         initParams = {
@@ -47,20 +50,42 @@ public class PlaceOrder extends HttpServlet{
         }
     }
     // To Save the Order
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        System.out.println("Hello doPost");
+//        if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
+//            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+//        } else {
+//            Jsonb jsonb = JsonbBuilder.create();
+//
+//            PlaceOrderDTO placeOrderDTO;
+//            placeOrderDTO = jsonb.fromJson(req.getReader(), PlaceOrderDTO.class);
+//
+//            PlaceOrderDBProcess placeOrderDBProcess = new PlaceOrderDBProcess();
+//            placeOrderDBProcess.saveOrders(placeOrderDTO,connection);
+//
+//        }
+//    }
+
+    // To get all item codes
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Hello doPost");
-        if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
-        } else {
-            Jsonb jsonb = JsonbBuilder.create();
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("Hello doGet for Item Codes");
+        Jsonb jsonb = JsonbBuilder.create();
 
-            PlaceOrderDTO placeOrderDTO;
-            placeOrderDTO = jsonb.fromJson(req.getReader(), PlaceOrderDTO.class);
+        ItemDBProcess itemDBProcess = new ItemDBProcess();
 
-            PlaceOrderDBProcess placeOrderDBProcess = new PlaceOrderDBProcess();
-            placeOrderDBProcess.saveOrders(placeOrderDTO,connection);
+        List<String> itemCodes = itemDBProcess.getAllItemCodes(connection);
 
-        }
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
+        ObjectMapper objMapper = new ObjectMapper();
+
+        String objRslt = objMapper.writeValueAsString(itemCodes);
+
+        resp.getWriter().write(objRslt);
     }
+
+
 }
