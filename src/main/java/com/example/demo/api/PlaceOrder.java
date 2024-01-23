@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "placeOrder", urlPatterns = "/placeOrder",
@@ -36,7 +37,7 @@ public class PlaceOrder extends HttpServlet{
     Connection connection;
     @Override
     public void init() throws ServletException {
-        System.out.println("hello Init");
+        System.out.println("hello Init-placeOrder");
         try {
             var user = getServletConfig().getInitParameter("db-user");
             var password = getServletConfig().getInitParameter("db-pw");
@@ -52,7 +53,7 @@ public class PlaceOrder extends HttpServlet{
     // To Save the Order
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Hello doPost");
+        System.out.println("Hello doPost-Place Order");
         if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         } else {
@@ -61,9 +62,12 @@ public class PlaceOrder extends HttpServlet{
             PlaceOrderDTO placeOrderDTO;
             placeOrderDTO = jsonb.fromJson(req.getReader(), PlaceOrderDTO.class);
 
-            PlaceOrderDBProcess placeOrderDBProcess = new PlaceOrderDBProcess();
-            placeOrderDBProcess.saveOrders(placeOrderDTO,connection);
+            // Convert the orderDate string to Date
+            Date orderDate = placeOrderDTO.getOrderDateAsDate();
+            placeOrderDTO.setOrderDate(String.valueOf(orderDate));
 
+            PlaceOrderDBProcess placeOrderDBProcess = new PlaceOrderDBProcess();
+            placeOrderDBProcess.saveOrders(placeOrderDTO, connection);
         }
     }
 
