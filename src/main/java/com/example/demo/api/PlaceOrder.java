@@ -50,22 +50,22 @@ public class PlaceOrder extends HttpServlet{
         }
     }
     // To Save the Order
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        System.out.println("Hello doPost");
-//        if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
-//            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
-//        } else {
-//            Jsonb jsonb = JsonbBuilder.create();
-//
-//            PlaceOrderDTO placeOrderDTO;
-//            placeOrderDTO = jsonb.fromJson(req.getReader(), PlaceOrderDTO.class);
-//
-//            PlaceOrderDBProcess placeOrderDBProcess = new PlaceOrderDBProcess();
-//            placeOrderDBProcess.saveOrders(placeOrderDTO,connection);
-//
-//        }
-//    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("Hello doPost");
+        if (req.getContentType() == null || !req.getContentType().toLowerCase().startsWith("application/json")) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            Jsonb jsonb = JsonbBuilder.create();
+
+            PlaceOrderDTO placeOrderDTO;
+            placeOrderDTO = jsonb.fromJson(req.getReader(), PlaceOrderDTO.class);
+
+            PlaceOrderDBProcess placeOrderDBProcess = new PlaceOrderDBProcess();
+            placeOrderDBProcess.saveOrders(placeOrderDTO,connection);
+
+        }
+    }
 
     // To get all item codes and customers ids
     @Override
