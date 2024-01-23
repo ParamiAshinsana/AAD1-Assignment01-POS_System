@@ -7,6 +7,8 @@ import lombok.var;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class PlaceOrderDBProcess {
     private static final String SAVE_ORDERS_DATA = "INSERT INTO PLACEORDER (orderId,orderDate,custId,itemCode,unitPrice,orQty,total) VALUES (?,?,?,?,?,?,?)";
@@ -16,7 +18,10 @@ public class PlaceOrderDBProcess {
         try {
             var ps = connection.prepareStatement(SAVE_ORDERS_DATA);
             ps.setString(1,placeOrderDTO.getOrderId());
-            ps.setDate(2, Date.valueOf(String.valueOf(placeOrderDTO.getOrderDate())));
+            // Convert the orderDate string to Date
+            Date orderDate = convertStringToDate(placeOrderDTO.getOrderDate());
+            ps.setDate(2, orderDate);
+
             ps.setString(3,placeOrderDTO.getCustomerId());
             ps.setString(4,placeOrderDTO.getItemCode());
             ps.setDouble(5,placeOrderDTO.getItemUnitPrice());
@@ -32,6 +37,16 @@ public class PlaceOrderDBProcess {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+
+
+    }
+    // Helper method to convert string to Date
+    private Date convertStringToDate(String dateStr) {
+        try {
+            return new Date(new SimpleDateFormat("yyyy-MM-dd").parse(dateStr).getTime());
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Error converting date string to Date", e);
         }
     }
 }
