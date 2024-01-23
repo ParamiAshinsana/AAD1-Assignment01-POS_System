@@ -2,13 +2,7 @@
 
 function GetTodayDate() {
     var tdate = new Date();
-    var dd = tdate.getDate(); //yields day
-    var MM = tdate.getMonth(); //yields month
-    var yyyy = tdate.getFullYear(); //yields year
-    var currentDate = dd + "-" + (MM + 1) + "-" + yyyy;
-
-    // return currentDate;
-
+    var currentDate = tdate.toISOString().split('T')[0];
     $("#orderDate").val(currentDate);
 }
 $('#place_order').click(function () {
@@ -37,45 +31,48 @@ $(document).ready(function() {
 
         console.log('Item total :',totalF);
 
-        // const customerData = {
-        //     id:idF,
-        //     name:cnameF,
-        //     mobile:cMobileF,
-        //     address:cAddressF
-        // };
-        // console.log(customerData);
-        //
-        // // create JSON
-        // const customerJSON = JSON.stringify(customerData)
-        // console.log(customerJSON)
-        //
-        // $.ajax({
-        //     url:"http://localhost:8080/Demo_war_exploded/customer",
-        //     type:"POST",
-        //     data:customerJSON,
-        //     headers:{"Content-Type":"application/json"},
-        //     success: (res) =>{
-        //         // clear();
-        //         $("#order-btns>button[type='reset']").click();
-        //         // loadCustomers();
-        //         console.log(JSON.stringify(res))
-        //
-        //         Swal.fire({
-        //             icon: 'success',
-        //             title: 'Order has been saved successfully!',
-        //             showConfirmButton: false,
-        //             timer: 2000
-        //         })
-        //     },
-        //     error: (err)=>{
-        //         console.error(err)
-        //         Swal.fire({
-        //             icon: 'error',
-        //             title: 'Invalid Input',
-        //             text: 'Something went wrong!'
-        //         })
-        //     }
-        // });
+        const orderData = {
+            orderId:orderIdF,
+            orderDate:orderDateF,
+            customerId:customerIdF,
+            itemCode:itemCodeF,
+            itemUnitPrice:itemPriceF,
+            itemQty:itemQtyF,
+            total:totalF
+        };
+        console.log(orderData);
+
+        // create JSON
+        const orderJSON = JSON.stringify(orderData)
+        console.log(orderJSON)
+
+        $.ajax({
+            url:"http://localhost:8080/Demo_war_exploded/placeOrder",
+            type:"POST",
+            data:orderJSON,
+            headers:{"Content-Type":"application/json"},
+            success: (res) =>{
+                // clear();
+                $("#order-btns>button[type='reset']").click();
+                // loadCustomers();
+                console.log(JSON.stringify(res))
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Order has been saved successfully!',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            },
+            error: (err)=>{
+                console.error(err)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Input',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
 
 
     });
