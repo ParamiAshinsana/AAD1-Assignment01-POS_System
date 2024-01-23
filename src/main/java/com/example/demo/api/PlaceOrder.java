@@ -82,9 +82,22 @@ public class PlaceOrder extends HttpServlet{
 
         ObjectMapper objMapper = new ObjectMapper();
 
-        String objRslt = objMapper.writeValueAsString(itemCodes);
+        String objRslt1 = objMapper.writeValueAsString(itemCodes);
 
-        resp.getWriter().write(objRslt);
+        resp.getWriter().write(objRslt1);
+
+        // customer
+
+        CustomerDBProcess customerDBProcess = new CustomerDBProcess();
+        List<String> customersIds = customerDBProcess.getAllCustomerIds(connection);
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
+        String objRslt2 = objMapper.writeValueAsString(customersIds);
+
+        resp.getWriter().write(objRslt2);
+
     }
 
 
