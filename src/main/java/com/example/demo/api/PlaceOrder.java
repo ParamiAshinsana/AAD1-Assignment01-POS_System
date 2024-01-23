@@ -99,5 +99,4 @@ public class PlaceOrder extends HttpServlet{
 //        resp.getWriter().write(objRslt2);
 
     }
-
 }
