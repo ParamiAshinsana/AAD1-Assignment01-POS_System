@@ -101,4 +101,22 @@ public class CustomerDBProcess {
             throw new RuntimeException(e);
         }
     }
+
+    // Get All Customer Ids
+    public List<String> getAllCustomerIds(Connection connection) {
+        List<String> customerIDs = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_CUSTOMERS);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                customerIDs.add(resultSet.getString("itemCode"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customerIDs;
+    }
 }
