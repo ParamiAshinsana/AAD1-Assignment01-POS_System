@@ -7,12 +7,15 @@ import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import lombok.var;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -44,6 +47,16 @@ public class Customer extends HttpServlet {
                 } catch (ClassNotFoundException | SQLException e) {
                         e.printStackTrace();
                 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//            try {
+//                InitialContext initialContext = new InitialContext();
+//                    DataSource pool = ctx.lookup("");
+//                    System.out.println(pool);
+//                    this.connection = pool.getConnection();
+//
+//            } catch (NamingException e) {
+//                throw new RuntimeException(e);
+//            }
         }
 
         // To Save the Customer
