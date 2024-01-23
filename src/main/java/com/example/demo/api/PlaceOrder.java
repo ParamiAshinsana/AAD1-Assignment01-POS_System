@@ -88,15 +88,15 @@ public class PlaceOrder extends HttpServlet{
 
         // customer
 
-        CustomerDBProcess customerDBProcess = new CustomerDBProcess();
-        List<String> customersIds = customerDBProcess.getAllCustomerIds(connection);
-
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-
-        String objRslt2 = objMapper.writeValueAsString(customersIds);
-
-        resp.getWriter().write(objRslt2);
+//        CustomerDBProcess customerDBProcess = new CustomerDBProcess();
+//        List<String> customersIds = customerDBProcess.getAllCustomerIds(connection);
+//
+//        resp.setContentType("application/json");
+//        resp.setCharacterEncoding("UTF-8");
+//
+//        String objRslt2 = objMapper.writeValueAsString(customersIds);
+//
+//        resp.getWriter().write(objRslt2);
 
     }
 
