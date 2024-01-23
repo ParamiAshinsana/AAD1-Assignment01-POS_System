@@ -108,7 +108,7 @@ public class Customer extends HttpServlet {
         // To get all the Customers
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-                System.out.println("Hello doGet");
+                System.out.println("Hello doGet-customer");
                 Jsonb jsonb = JsonbBuilder.create();
                 CustomerDTO customerDTO;
 
