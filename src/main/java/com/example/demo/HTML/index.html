@@ -257,7 +257,7 @@
                 <form>
                     <div class="mb-3">
                         <label for="order_id" class="form-label">Order ID :</label>
-                        <input type="text" disabled class="form-control" id="order_id" placeholder="Type Item Code here">
+                        <input type="text" class="form-control" id="order_id" placeholder="Type Order Id here">
                     </div>
 
                     <div class="mb-3">
@@ -267,12 +267,14 @@
 
                     <div class="mb-3">
                         <label for="itemCode" class="form-label">Item Code</label>
-                        <input type="text" class="form-control" id="itemCode">
+<!--                        <input type="text" class="form-control" id="itemCode">-->
+
+                        <select id="itemCode" class="form-select" ></select>
                     </div>
 
                     <div class="mb-3">
                         <label for="unit_price" class="form-label">Unit Price :</label>
-                        <input type="text" class="form-control" id="unit_price" placeholder="Type Item Quantity here">
+                        <input type="text" class="form-control" id="unit_price" placeholder="Type Item Price here">
                     </div>
 
                     <div class="mt-5 mb-5" id="order-btns">
@@ -334,6 +336,7 @@
 <!--Link Controllers-->
 <script type="module" src="../HTML/controllers/CustomerController.js"></script>
 <script type="module" src="../HTML/controllers/ItemController.js"></script>
+<script type="module" src="../HTML/controllers/PlaceOrderController.js"></script>
 <script>
 
 </script>
