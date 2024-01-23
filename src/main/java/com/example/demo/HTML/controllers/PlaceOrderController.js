@@ -1,4 +1,86 @@
-// // Order Save
+// Order Save
+
+function GetTodayDate() {
+    var tdate = new Date();
+    var dd = tdate.getDate(); //yields day
+    var MM = tdate.getMonth(); //yields month
+    var yyyy = tdate.getFullYear(); //yields year
+    var currentDate = dd + "-" + (MM + 1) + "-" + yyyy;
+
+    // return currentDate;
+
+    $("#orderDate").val(currentDate);
+}
+$('#place_order').click(function () {
+    GetTodayDate();
+});
+$(document).ready(function() {
+    $("#order-btns> button[type='button']").eq(0).on("click", () => {
+        event.preventDefault();
+
+        let orderIdF = $("#order_id").val();
+        let orderDateF = $("#orderDate").val();
+        let customerIdF = $("#cus_Code").val();
+        let itemCodeF = $("#itemCode").val();
+        let itemPriceF = $("#unit_price").val();
+        let itemQtyF = $("#qty").val();
+
+        let totalF =  itemPriceF*itemQtyF;
+
+        console.log('Order Id :',orderIdF);
+        console.log('Order Date :',orderDateF);
+        console.log('Customer Id :',customerIdF);
+
+        console.log('Item Code :',itemCodeF);
+        console.log('Item price :',itemPriceF);
+        console.log('Item qty :',itemQtyF);
+
+        console.log('Item total :',totalF);
+
+        // const customerData = {
+        //     id:idF,
+        //     name:cnameF,
+        //     mobile:cMobileF,
+        //     address:cAddressF
+        // };
+        // console.log(customerData);
+        //
+        // // create JSON
+        // const customerJSON = JSON.stringify(customerData)
+        // console.log(customerJSON)
+        //
+        // $.ajax({
+        //     url:"http://localhost:8080/Demo_war_exploded/customer",
+        //     type:"POST",
+        //     data:customerJSON,
+        //     headers:{"Content-Type":"application/json"},
+        //     success: (res) =>{
+        //         // clear();
+        //         $("#order-btns>button[type='reset']").click();
+        //         // loadCustomers();
+        //         console.log(JSON.stringify(res))
+        //
+        //         Swal.fire({
+        //             icon: 'success',
+        //             title: 'Order has been saved successfully!',
+        //             showConfirmButton: false,
+        //             timer: 2000
+        //         })
+        //     },
+        //     error: (err)=>{
+        //         console.error(err)
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: 'Invalid Input',
+        //             text: 'Something went wrong!'
+        //         })
+        //     }
+        // });
+
+
+    });
+});
+
 
 
 // ----------------Get Item Code ----------------------------------------
