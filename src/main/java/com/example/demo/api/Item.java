@@ -68,7 +68,7 @@ public class Item extends HttpServlet {
     // To get all the Items
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Hello doGet");
+        System.out.println("Hello doGet item");
         Jsonb jsonb = JsonbBuilder.create();
 
         ItemDTO itemDTO;
