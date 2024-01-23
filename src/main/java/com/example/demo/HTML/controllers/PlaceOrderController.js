@@ -2,9 +2,19 @@
 
 function GetTodayDate() {
     var tdate = new Date();
-    var currentDate = tdate.toISOString().split('T')[0];
+    var dd = tdate.getDate(); // yields day
+    var MM = tdate.getMonth() + 1; // yields month (add 1 as it is zero-based)
+    var yyyy = tdate.getFullYear(); // yields year
+    var currentDate = dd + "-" + MM + "-" + yyyy;
+
+    // Set the formatted date to the input field
     $("#orderDate").val(currentDate);
 }
+
+// Call the GetTodayDate function when the document is ready
+$(document).ready(function() {
+    GetTodayDate();
+});
 $('#place_order').click(function () {
     GetTodayDate();
 });
