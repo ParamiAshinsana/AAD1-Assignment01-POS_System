@@ -102,5 +102,16 @@ public class PlaceOrder extends HttpServlet{
 //
 //        resp.getWriter().write(objRslt2);
 
+        PlaceOrderDBProcess placeOrderDBProcess = new PlaceOrderDBProcess();
+        List<PlaceOrderDTO> placeOrderDTOS = placeOrderDBProcess.getAllOrders(connection);
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
+        ObjectMapper objMapperOr = new ObjectMapper();
+        String objRslts = objMapperOr.writeValueAsString(placeOrderDTOS);
+
+        resp.getWriter().write(objRslts);
+
     }
 }
