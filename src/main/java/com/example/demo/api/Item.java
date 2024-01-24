@@ -34,7 +34,7 @@ public class Item extends HttpServlet {
     Connection connection;
     @Override
     public void init() throws ServletException {
-        System.out.println("hello Init");
+        System.out.println("hello Init-item");
         try {
             var user = getServletConfig().getInitParameter("db-user");
             var password = getServletConfig().getInitParameter("db-pw");

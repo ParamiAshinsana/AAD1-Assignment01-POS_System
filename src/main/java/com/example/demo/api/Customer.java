@@ -35,7 +35,7 @@ public class Customer extends HttpServlet {
         Connection connection;
         @Override
         public void init() throws ServletException {
-                System.out.println("hello Init");
+                System.out.println("hello Init-customer");
                 try {
                         InitialContext ctx = new InitialContext();
                         DataSource pool = (DataSource) ctx.lookup("java:comp/env/jdbc/pos");

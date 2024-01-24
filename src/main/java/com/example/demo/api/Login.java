@@ -36,7 +36,7 @@ public class Login extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        System.out.println("hello Init");
+        System.out.println("hello Init-login");
         try {
             var user = getServletConfig().getInitParameter("db-user");
             var password = getServletConfig().getInitParameter("db-pw");
