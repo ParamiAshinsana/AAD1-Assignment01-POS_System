@@ -4,15 +4,17 @@ import com.example.demo.dto.CustomerDTO;
 import com.example.demo.dto.PlaceOrderDTO;
 import lombok.var;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class PlaceOrderDBProcess {
     private static final String SAVE_ORDERS_DATA = "INSERT INTO PLACEORDER (orderId,orderDate,custId,itemCode,unitPrice,orQty,total) VALUES (?,?,?,?,?,?,?)";
+
+    private static final String SELECT_ALL_ORDERS = "SELECT * FROM PLACEORDER";
 
     // Customer Save
     public void saveOrders(PlaceOrderDTO placeOrderDTO, Connection connection){
@@ -49,5 +51,32 @@ public class PlaceOrderDBProcess {
         } catch (ParseException e) {
             throw new IllegalArgumentException("Error converting date string to Date", e);
         }
+    }
+
+    // Get All orders
+    public List<PlaceOrderDTO> getAllOrders(Connection connection) {
+        List<PlaceOrderDTO> orderDTO = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ORDERS);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                PlaceOrderDTO orders = new PlaceOrderDTO(
+                        resultSet.getString("orderId"),
+                        resultSet.getString("orderDate"),
+                        resultSet.getString("custId"),
+                        resultSet.getString("itemCode"),
+                        resultSet.getDouble("unitPrice"),
+                        resultSet.getInt("orQty"),
+                        resultSet.getDouble("total")
+                );
+                orderDTO.add(orders);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return orderDTO;
     }
 }
