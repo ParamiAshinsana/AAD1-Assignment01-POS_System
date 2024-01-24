@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import lombok.var;
+import org.slf4j.LoggerFactory;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -21,6 +22,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Logger;
 
 @WebServlet(name = "customer", urlPatterns = "/customer",
         initParams = {
@@ -32,6 +34,7 @@ import java.util.List;
         loadOnStartup = 10
 )
 public class Customer extends HttpServlet {
+        final static Logger logger = (Logger) LoggerFactory.getLogger(Customer.class);
         Connection connection;
         @Override
         public void init() throws ServletException {
