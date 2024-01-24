@@ -190,15 +190,15 @@ $("#cus_Code").on("change", function() {
 
 // get all customers data
 function loadOrders() {
-    $("#customer-tbl-body").empty();
+    $("#order-tbl-body").empty();
 
     $.ajax({
-        url: "http://localhost:8080/Demo_war_exploded/customer",
+        url: "http://localhost:8080/Demo_war_exploded/placeOrder",
         type: "GET",
         success: function(data) {
-            data.forEach(function(customer) {
-                let record = `<tr><td class="id">${customer.id}</td><td class="name">${customer.name}</td><td class="mobile">${customer.mobile}</td><td class="address">${customer.address}</td></tr>`;
-                $("#customer-tbl-body").append(record);
+            data.forEach(function(orders) {
+                let record = `<tr><td class="orderId">${orders.orderId}</td><td class="orderDate">${orders.orderDate}</td><td class="customerId">${orders.customerId}</td><td class="itemCode">${orders.itemCode}</td><td class="itemUnitPrice">${orders.itemUnitPrice}</td><td class="itemQty">${orders.itemQty}</td><td class="total">${orders.total}</td></tr>`;
+                $("#order-tbl-body").append(record);
             });
         }
     });
@@ -218,7 +218,6 @@ $("#customer-tbl-body").on("click", "tr", function() {
     $("#customer_mobile").val(mobile);
     $("#customer_address").val(address);
 })
-
 
 
 
