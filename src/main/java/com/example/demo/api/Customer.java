@@ -37,15 +37,11 @@ public class Customer extends HttpServlet {
         public void init() throws ServletException {
                 System.out.println("hello Init");
                 try {
-                        var user = getServletConfig().getInitParameter("db-user");
-                        var password = getServletConfig().getInitParameter("db-pw");
-                        var url = getServletConfig().getInitParameter("db-url");
-
-                        Class.forName(getServletConfig().getInitParameter("db-class"));
-                        this.connection = DriverManager.getConnection(url, user, password);
-
-                } catch (ClassNotFoundException | SQLException e) {
-                        e.printStackTrace();
+                        InitialContext ctx = new InitialContext();
+                        DataSource pool = (DataSource) ctx.lookup("java:comp/env/jdbc/pos");
+                        this.connection = pool.getConnection();
+                } catch (SQLException | NamingException e) {
+                        throw new RuntimeException(e);
                 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //            try {
