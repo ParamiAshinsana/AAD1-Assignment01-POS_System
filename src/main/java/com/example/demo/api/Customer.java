@@ -43,16 +43,6 @@ public class Customer extends HttpServlet {
                 } catch (SQLException | NamingException e) {
                         throw new RuntimeException(e);
                 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-//            try {
-//                InitialContext initialContext = new InitialContext();
-//                    DataSource pool = ctx.lookup("");
-//                    System.out.println(pool);
-//                    this.connection = pool.getConnection();
-//
-//            } catch (NamingException e) {
-//                throw new RuntimeException(e);
-//            }
         }
 
         // To Save the Customer
