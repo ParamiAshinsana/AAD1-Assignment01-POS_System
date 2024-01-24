@@ -77,31 +77,6 @@ public class PlaceOrder extends HttpServlet{
         System.out.println("Hello doGet for Item Codes");
         Jsonb jsonb = JsonbBuilder.create();
 
-        ItemDBProcess itemDBProcess = new ItemDBProcess();
-
-        List<String> itemCodes = itemDBProcess.getAllItemCodes(connection);
-
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-
-        ObjectMapper objMapper = new ObjectMapper();
-
-        String objRslt1 = objMapper.writeValueAsString(itemCodes);
-
-        resp.getWriter().write(objRslt1);
-
-        // customer
-
-//        CustomerDBProcess customerDBProcess = new CustomerDBProcess();
-//        List<String> customersIds = customerDBProcess.getAllCustomerIds(connection);
-//
-//        resp.setContentType("application/json");
-//        resp.setCharacterEncoding("UTF-8");
-//
-//        String objRslt2 = objMapper.writeValueAsString(customersIds);
-//
-//        resp.getWriter().write(objRslt2);
-
         PlaceOrderDBProcess placeOrderDBProcess = new PlaceOrderDBProcess();
         List<PlaceOrderDTO> placeOrderDTOS = placeOrderDBProcess.getAllOrders(connection);
 
