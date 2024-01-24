@@ -1,3 +1,6 @@
+loadOrders();
+var row_index = null;
+
 // Order Save
 
 function GetTodayDate() {
@@ -184,6 +187,37 @@ $("#cus_Code").on("change", function() {
         console.error("Customer not found for code: " + selectedCode1);
     }
 });
+
+// get all customers data
+function loadOrders() {
+    $("#customer-tbl-body").empty();
+
+    $.ajax({
+        url: "http://localhost:8080/Demo_war_exploded/customer",
+        type: "GET",
+        success: function(data) {
+            data.forEach(function(customer) {
+                let record = `<tr><td class="id">${customer.id}</td><td class="name">${customer.name}</td><td class="mobile">${customer.mobile}</td><td class="address">${customer.address}</td></tr>`;
+                $("#customer-tbl-body").append(record);
+            });
+        }
+    });
+}
+
+// when click a row
+$("#customer-tbl-body").on("click", "tr", function() {
+    row_index = $(this).index();
+
+    let id = $(this).find(".id").text();
+    let name = $(this).find(".name").text();
+    let mobile = $(this).find(".mobile").text();
+    let address = $(this).find(".address").text();
+
+    $("#id").val(id);
+    $("#customer_name").val(name);
+    $("#customer_mobile").val(mobile);
+    $("#customer_address").val(address);
+})
 
 
 
