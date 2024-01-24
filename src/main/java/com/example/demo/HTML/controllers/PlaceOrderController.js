@@ -1,6 +1,23 @@
 loadOrders();
 var row_index = null;
 
+// get all customers data
+function loadOrders() {
+    console.log("Get-paceorder");
+    $("#order-tbl-body").empty();
+
+    $.ajax({
+        url: "http://localhost:8080/Demo_war_exploded/placeOrder",
+        type: "GET",
+        success: function(data) {
+            data.forEach(function(orders) {
+                let record = `<tr><td class="orderId">${orders.orderId}</td><td class="orderDate">${orders.orderDate}</td><td class="customerId">${orders.customerId}</td><td class="itemCode">${orders.itemCode}</td><td class="itemUnitPrice">${orders.itemUnitPrice}</td><td class="itemQty">${orders.itemQty}</td><td class="total">${orders.total}</td></tr>`;
+                $("#order-tbl-body").append(record);
+            });
+        }
+    });
+}
+
 // Order Save
 
 function GetTodayDate() {
@@ -188,39 +205,23 @@ $("#cus_Code").on("change", function() {
     }
 });
 
-// get all customers data
-function loadOrders() {
-    $("#order-tbl-body").empty();
-
-    $.ajax({
-        url: "http://localhost:8080/Demo_war_exploded/placeOrder",
-        type: "GET",
-        success: function(data) {
-            data.forEach(function(orders) {
-                let record = `<tr><td class="orderId">${orders.orderId}</td><td class="orderDate">${orders.orderDate}</td><td class="customerId">${orders.customerId}</td><td class="itemCode">${orders.itemCode}</td><td class="itemUnitPrice">${orders.itemUnitPrice}</td><td class="itemQty">${orders.itemQty}</td><td class="total">${orders.total}</td></tr>`;
-                $("#order-tbl-body").append(record);
-            });
-        }
-    });
-}
 
 // when click a row
-$("#customer-tbl-body").on("click", "tr", function() {
+$("#order-tbl-body").on("click", "tr", function() {
     row_index = $(this).index();
 
-    let id = $(this).find(".id").text();
-    let name = $(this).find(".name").text();
-    let mobile = $(this).find(".mobile").text();
-    let address = $(this).find(".address").text();
+    let orderId = $(this).find(".orderId").text();
+    let orderDate = $(this).find(".orderDate").text();
+    let customerId = $(this).find(".customerId").text();
+    let itemCode = $(this).find(".itemCode").text();
 
-    $("#id").val(id);
-    $("#customer_name").val(name);
-    $("#customer_mobile").val(mobile);
-    $("#customer_address").val(address);
+    let itemUnitPrice = $(this).find(".itemUnitPrice").text();
+    let itemQty = $(this).find(".itemQty").text();
+
+    $("#order_id").val(orderId);
+    $("#orderDate").val(orderDate);
+    $("#cus_Code").val(customerId);
+    $("#itemCode").val(itemCode);
+    $("#unit_price").val(itemUnitPrice);
+    $("#qty").val(itemQty);
 })
-
-
-
-
-
-
