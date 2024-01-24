@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class PlaceOrderDBProcess {
     private static final String SAVE_ORDERS_DATA = "INSERT INTO PLACEORDER (orderId,orderDate,custId,itemCode,unitPrice,orQty,total) VALUES (?,?,?,?,?,?,?)";
@@ -44,7 +45,7 @@ public class PlaceOrderDBProcess {
     // Helper method to convert string to Date
     private Date convertStringToDate(String dateStr) {
         try {
-            return new Date(new SimpleDateFormat("yyyy-MM-dd").parse(dateStr).getTime());
+            return new Date(new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US).parse(dateStr).getTime());
         } catch (ParseException e) {
             throw new IllegalArgumentException("Error converting date string to Date", e);
         }
