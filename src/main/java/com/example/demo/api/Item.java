@@ -9,12 +9,15 @@ import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import lombok.var;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -36,15 +39,11 @@ public class Item extends HttpServlet {
     public void init() throws ServletException {
         System.out.println("hello Init-item");
         try {
-            var user = getServletConfig().getInitParameter("db-user");
-            var password = getServletConfig().getInitParameter("db-pw");
-            var url = getServletConfig().getInitParameter("db-url");
-
-            Class.forName(getServletConfig().getInitParameter("db-class"));
-            this.connection = DriverManager.getConnection(url, user, password);
-
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            InitialContext ctx = new InitialContext();
+            DataSource pool = (DataSource) ctx.lookup("java:comp/env/jdbc/pos");
+            this.connection = pool.getConnection();
+        } catch (SQLException | NamingException e) {
+            throw new RuntimeException(e);
         }
     }
 
