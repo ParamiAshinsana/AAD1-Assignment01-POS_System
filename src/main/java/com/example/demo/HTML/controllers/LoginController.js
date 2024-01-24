@@ -35,7 +35,7 @@ $('#loginButton').click(function () {
                     setTimeout(function () {
                         // If authentication is successful, redirect to index.html
                         window.location.href = "index.html";
-                    }, 2800);
+                    }, 2000);
 
 
 
